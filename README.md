@@ -8,7 +8,7 @@ ISTRUZIONI:
 
 •	Eseguire il main.js su Visual Studio Code aprendo una chiamata al server su porta 3000, e mediante la POST vengono quindi i dati all’influx db che li registra. 
 
-	Bisogna installare le seguenti librerie: influx, fastify, fastifycors. 
+	Scaricare package.json e digitare nel terminale "npm install" in modo da installare le seguenti librerie: fastify, fastifycors e influx. 
 	Programmi usati Visual Studio 2019 e Visual Studio Code.
 
 
