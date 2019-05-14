@@ -15,7 +15,7 @@ namespace DataSender
             while (true)
             {
                 // read from Redis queue
-                string json = redis.BLPop(30, "sensors_data");
+                string json = redis.BRPop(30, "sensors_data");
                 //Console.WriteLine(redis.BLPop(30, "sensors_data"));
 
                 // send value to remote API
