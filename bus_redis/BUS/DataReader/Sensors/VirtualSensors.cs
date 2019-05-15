@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace DataReader.Sensors
 {
@@ -10,7 +10,7 @@ namespace DataReader.Sensors
         //public void SetTemperature(decimal temperature)
         //{ }
 
-        private string AperturaChiusura()
+        public string Apertura()
         {
             double ran = rnd.Next(0, 2);
             if(initialac==ran && ran==0)
@@ -25,7 +25,7 @@ namespace DataReader.Sensors
             }
         }
 
-        private string ContaPersone()
+        public string ContaPersone()
         {
             if (initialac == 1)
             {
@@ -49,7 +49,7 @@ namespace DataReader.Sensors
             }
         }
 
-        private string[] Posizione()
+        public string[] Posizione()
         {
             //int delay = rnd.Next(0, 5000);
             //System.Threading.Thread.Sleep(delay);
@@ -64,23 +64,24 @@ namespace DataReader.Sensors
             return list;
         }
 
-        private string Id()
+        public string Id()
         {
             return rnd.Next(1,100).ToString();
         }
 
+
         public string ToJson()
         {
             string[] list = new string[5];
-            list[0] = AperturaChiusura();
-            string oraapertura = (System.DateTime.Now).ToString();
+            list[0] = Apertura();
+            string oraapertura = (System.DateTime.UtcNow.Ticks-System.DateTime.Parse("01/01/1970 00:00:00").Ticks).ToString();
             list[1] = ContaPersone();
             list[2] = Posizione()[0];
             list[3] = Posizione()[1];
-            string oraposizione = (System.DateTime.Now).ToString();
+            string oraposizione = (System.DateTime.UtcNow.Ticks-System.DateTime.Parse("01/01/1970 00:00:00").Ticks).ToString();
             list[4] = Id();
             return "{" +
-                "\"Apertura_Chiusura\":\"" + list[0] + "\"," +
+                "\"Apertura\":\"" + list[0] + "\"," +
                 "\"Conta_Persone\":\"" + list[1] + "\"," +
                 "\"Latitudine\":\"" + list[2] + "\"," +
                 "\"Longitudine\":\"" + list[3] + "\"," +
