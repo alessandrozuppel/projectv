@@ -6,11 +6,14 @@ const fastify = require('fastify')({
 fastify.register(require('fastify-cors'));
 
 const Influx = require('influx');
+const fs=require('fs');
+
+var obj= JSON.parse(fs.readFileSync('../config/configApi_Influxdb.json','utf8'));
 
 const influx = new Influx.InfluxDB({
-host: 'localhost',
-database: 'busdati',
-port:8086
+host: obj.influx.host,
+database: obj.influx.database,
+port:obj.influx.port
 })
 fastify.post('/api/busdati/', async (request, reply) => {
   var dati=request.body;
@@ -43,7 +46,7 @@ fastify.post('/api/busdati/', async (request, reply) => {
       ]);
   }
 
-  reply.status(201).send(dati);
+  reply.status(201).send("201");
 
   
 });
@@ -51,7 +54,7 @@ fastify.post('/api/busdati/', async (request, reply) => {
 
 const start = async () => {
   try {                                                       
-    await fastify.listen(3000,'0.0.0.0')                                                    //Creo web server e sto in ascolto sulla porta 3000
+    await fastify.listen(obj.api.port,obj.influx.ip)                                                    //Creo web server e sto in ascolto sulla porta 3000
     fastify.log.info(`server listening on ${fastify.server.address().port}`)      // Ascolto tutte richiest http
   } catch (err) {
     fastify.log.error(err)

@@ -1,0 +1,7 @@
+{
+    "api":{"port":"3000",
+            "ip":"0.0.0.0"},
+    "influx":{"host":"localhost",
+            "database": "busdati",
+            "port":"8086"}
+}
