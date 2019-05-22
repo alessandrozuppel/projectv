@@ -1,12 +1,22 @@
 using System;
 using System.Net;
 using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 using CSRedis;
 
 namespace DataSender
 {
     class Program
     {
+        //Variabile per decidere se re-inserire la stringa json in coda 
+        static int i = 0;
+        
+        //Set Url
+        static string port = Properties.Settings.Default.ServerPort;
+        static string ip = Properties.Settings.Default.HostIp;
+        static string api_path = Properties.Settings.Default.ApiPath;
+        static string url = "http://" + ip + ":" + port + api_path;
         static void Main(string[] args)
         {
             // configure Redis
@@ -14,59 +24,33 @@ namespace DataSender
 
             while (true)
             {
+                i = 0;
                 // read from Redis queue
-                string json = redis.BLPop(30, "sensors_data");
-                //Console.WriteLine(redis.BLPop(30, "sensors_data"));
+                string json = redis.BRPop(30, "sensors_data");
 
-                // send value to remote API
                 try
-                {
-                    var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://192.168.101.23:3000/api/busdati");
-                    //var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://127.0.0.2:5000/api/busdati/");
-                    httpWebRequest.ContentLength = json.Length;
-                    httpWebRequest.ContentType = "application/json";
-                    httpWebRequest.Method = "POST";
-                    httpWebRequest.Proxy = null;
-                    using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                     {
-                        try
+                        using (WebClient webClient = new WebClient())
                         {
-                            streamWriter.Write(json);
-                            streamWriter.Flush();
-                            streamWriter.Close();
-                        }
-                        catch(Exception e)
-                        {
-                            Console.WriteLine(e.Message);
+                            webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
+                            string response = webClient.UploadString(url, json);
+
+                            if (response != "201")
+                                i = 1;
+
+                            Console.WriteLine(response);
                         }
                     }
+                    catch (Exception err)
+                    {
+                        Console.Write(err.Message);
+                        i = 1;
+                    }
 
-                    //Read Response
-                    //HttpWebResponse response = (HttpWebResponse)httpWebRequest.GetResponse();
-                    //WebHeaderCollection header = response.Headers;
-
-                    //using (var reader = new System.IO.StreamReader(response.GetResponseStream()))
-                    //{
-                    //    string responseText = reader.ReadToEnd();
-                    //    Console.WriteLine(responseText);
-                    //}
-
-                    Console.Write("si ");
-                    for(int i=97; i<113; i++)
-                        {
-                            Console.Write(json[i]);
-                        }
                     Console.WriteLine();
-                }
-                catch (Exception err)
-                {
-                    Console.Write("no ");
-                    for(int i=97; i<113; i++)
-                        {
-                            Console.Write(json[i]);
-                        }
-                    Console.WriteLine();
-                }
+                    
+                    if(i==1)
+                    redis.LPush("sensors_data", json);
             }
         }
     }
