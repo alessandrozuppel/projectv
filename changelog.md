@@ -1,4 +1,11 @@
-ADDED:
+AGGIUNTE:
+
+Creato file DataReader.
+Creato file DataSender.
+Creata API per invio dati.
+Creato database con INFLUX.
+
+Funzionamento: 
 
 1.	DataReader: 
 •	Program.cs  si apre un client redis in locale che memorizza i dati inviati dai sensori, si inizializza la variabile “data” che richiama la funzione dei sensori ToJson, in VirtualSensor.cs.
@@ -15,7 +22,7 @@ Con la libreria HttpWebRequest si genera una richiesta di tipo POST all’indiri
 L’API esterna poi si occuperà di salvare i dati letti sul database: InfluxDB. 
 Influx permette di memorizzare moltissimi dati e accedervi in fretta, attraverso esso si possono formulare query grazie alle quali si visualizzeranno le tabelle create al momento. 
 
-CHANGED: [2019-05-22]
+MODIFICHE: [22-05-2019]
 
 Cambiata in DataSender la libreria HttpWebRequest con la libreria system.net.
-Usato metodo webclient. 
+Usato metodo webclient, per la risoluzione di un problema sorto nell'invio dati all'API.
