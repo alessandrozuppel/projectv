@@ -13,8 +13,8 @@ namespace DataSender
         static int i = 0;
         
         //Set Url
-        static string ip = Properties.Settings.Default.ServerPort;
-        static string port = Properties.Settings.Default.HostIp;
+        static string port = Properties.Settings.Default.ServerPort;
+        static string ip = Properties.Settings.Default.HostIp;
         static string api_path = Properties.Settings.Default.ApiPath;
         static string url = "http://" + ip + ":" + port + api_path;
         static void Main(string[] args)
