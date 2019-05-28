@@ -54,7 +54,7 @@ fastify.post('/api/busdati/', async (request, reply) => {
 
 const start = async () => {
   try {                                                       
-    await fastify.listen(obj.api.port,obj.influx.ip)                                                    //Creo web server e sto in ascolto sulla porta 3000
+    await fastify.listen(obj.api.port,obj.api.ip)                                                    //Creo web server e sto in ascolto sulla porta 3000
     fastify.log.info(`server listening on ${fastify.server.address().port}`)      // Ascolto tutte richiest http
   } catch (err) {
     fastify.log.error(err)
