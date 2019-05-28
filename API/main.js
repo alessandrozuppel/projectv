@@ -15,6 +15,8 @@ host: obj.influx.host,
 database: obj.influx.database,
 port:obj.influx.port
 })
+
+// Lettura dati dal simulatore e salvataggio su influx DB
 fastify.post('/api/busdati/', async (request, reply) => {
   var dati=request.body;
   //console.log("Dati: ",dati);
@@ -51,6 +53,22 @@ fastify.post('/api/busdati/', async (request, reply) => {
   
 });
 
+// visualizzazione dei dati 
+/*
+fastify.get('/api/visbus/:id', async (request, reply) => {
+  var id=request.params.id;
+  console.log(id);
+  var results;
+  influx.query('select * from Posizione where idBus='+id+' ').then(results => {
+    //return results;
+    console.log(results);
+  });
+  //reply.send(200).status("ok");
+
+  return results;
+  
+});
+*/
 
 const start = async () => {
   try {                                                       
