@@ -1,5 +1,4 @@
 using System;
-
 using System.Net;
 using System.IO;
 using System.Text;
@@ -11,21 +10,33 @@ namespace DataSender
     class Program
     {
         //Variabile per decidere se re-inserire la stringa json in coda 
-        static int i = 0;
+        static bool i = true;
         
         //Set Url
-        static string port = Properties.Settings.Default.ServerPort;
-        static string ip = Properties.Settings.Default.ServerIP;
+        static string port = Properties.Settings.Default.LocalPort;
+        static string ip = Properties.Settings.Default.LocalHost;
         static string api_path = Properties.Settings.Default.ApiPath;
+        static string urlToken = "http://" + ip + ":" + port + "/token";
         static string url = "http://" + ip + ":" + port + api_path;
         static void Main(string[] args)
         {
+            //Esegue autenticazione
+            string token = "";
+            using (WebClient webClient = new WebClient())
+            {
+                string credentials = "{\"id\": \"pippo\", \"password\": \"passwordsicura\"}";
+                webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
+                //webClient.Credentials = new NetworkCredential("pippo","passwordsicura");
+                token = webClient.UploadString(urlToken, credentials);
+            }
+
+
             // configure Redis
             var redis = new RedisClient("127.0.0.1");
 
             while (true)
             {
-                i = 0;
+                i = true;
                 // read from Redis queue
                 string json = redis.BRPop(30, "sensors_data");
 
@@ -34,10 +45,13 @@ namespace DataSender
                         using (WebClient webClient = new WebClient())
                         {
                             webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
+                            webClient.Headers[HttpRequestHeader.Authorization] = "Bearer " + token;
+                            webClient.UseDefaultCredentials = true;
+                            webClient.Credentials = new NetworkCredential("pippo", "poppo");
                             string response = webClient.UploadString(url, json);
 
                             if (response != "201")
-                                i = 1;
+                                i = false;
 
                             Console.WriteLine(response);
                         }
@@ -45,12 +59,12 @@ namespace DataSender
                     catch (Exception err)
                     {
                         Console.Write(err.Message);
-                        i = 1;
+                        i = false;
                     }
 
                     Console.WriteLine();
                     
-                    if(i==1)
+                    if(i=false)
                     redis.LPush("sensors_data", json);
             }
         }
