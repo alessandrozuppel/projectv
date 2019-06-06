@@ -22,7 +22,11 @@ Con la libreria HttpWebRequest si genera una richiesta di tipo POST all’indiri
 L’API esterna poi si occuperà di salvare i dati letti sul database: InfluxDB. 
 Influx permette di memorizzare moltissimi dati e accedervi in fretta, attraverso esso si possono formulare query grazie alle quali si visualizzeranno le tabelle create al momento. 
 
-MODIFICHE: [22-05-2019]
+MODIFICHE: 
 
+[22-05-2019]
 Cambiata in DataSender la libreria HttpWebRequest con la libreria system.net.
 Usato metodo webclient, per la risoluzione di un problema sorto nell'invio dati all'API.
+
+[06-06-2019]
+Implementate nuovi funzioni random per rendere più verosimili i dati delle tratte del bus. 
