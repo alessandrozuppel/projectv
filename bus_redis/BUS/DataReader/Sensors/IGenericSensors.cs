@@ -10,7 +10,7 @@ namespace DataReader.Sensors
     {
         string Apertura();
         string ContaPersone();
-        string[] Posizione();
+        double[] Posizione();
         string Id();
     }
 }

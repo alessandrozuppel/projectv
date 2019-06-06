@@ -1,4 +1,5 @@
 using System;
+
 using System.Net;
 using System.IO;
 using System.Text;
@@ -14,7 +15,7 @@ namespace DataSender
         
         //Set Url
         static string port = Properties.Settings.Default.ServerPort;
-        static string ip = Properties.Settings.Default.HostIp;
+        static string ip = Properties.Settings.Default.ServerIP;
         static string api_path = Properties.Settings.Default.ApiPath;
         static string url = "http://" + ip + ":" + port + api_path;
         static void Main(string[] args)
