@@ -42,7 +42,7 @@ fastify.post('/api/busdati/', async (request, reply) => {
       {
         measurement: 'Apertura',
         tags: { idBus: dati.IdVeicolo },
-        fields: { Apertura:porta, latitudine:dati.Latitudine, longitudine:dati.Longitudine },
+        fields: { Apertura:porta, nPersone:dati.Conta_Persone, latitudine:dati.Latitudine, longitudine:dati.Longitudine },
         timestamp:dati.DataOraPorte+"00",
       }
       ]);
