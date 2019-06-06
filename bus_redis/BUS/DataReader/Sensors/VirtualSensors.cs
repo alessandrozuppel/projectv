@@ -83,18 +83,17 @@ namespace DataReader.Sensors
 
         public string ToJson(bool fermo, string ora)
         {
-            Console.WriteLine(fermo);
             //Dati inviati nel caso il bus sia fermo
             if(fermo==true)
             { 
             string[] list = new string[5];
-            list[0] = "1"; //Apertura è aperto
-            string oraapertura = ora; //Ora passata da program del momento in cui il bus è arrivato alla fermata
+            list[0] = "1"; //Apertura Ã¨ aperto
+            string oraapertura = ora; //Ora passata da program del momento in cui il bus Ã¨ arrivato alla fermata
             list[1] = ContaPersone();   //Il nuero di persone varia 
-            list[2] = lastPos[0].ToString(); //La posizione è l'ultima registrata
-            list[3] = lastPos[1].ToString(); //La posizione è l'ultima registrata
+            list[2] = lastPos[0].ToString(); //La posizione Ã¨ l'ultima registrata
+            list[3] = lastPos[1].ToString(); //La posizione Ã¨ l'ultima registrata
             string oraposizione = (System.DateTime.UtcNow.Ticks-System.DateTime.Parse("01/01/1970 00:00:00").Ticks).ToString(); //La data di invio dati cambia anche da bus fermo
-            list[4] = Id(); //L'id è quello fornito
+            list[4] = Id(); //L'id Ã¨ quello fornito
             return "{" +
                         "\"Apertura\":\"" + list[0] + "\"," +
                         "\"Conta_Persone\":\"" + list[1] + "\"," +
@@ -110,13 +109,13 @@ namespace DataReader.Sensors
              else
             {
                 string[] list = new string[5];
-                list[0] = "1"; //Apertura è chiuso
-                string oraapertura = ora; //Ora passata da program del momento in cui il bus è partito dalla fermata
-                list[1] = initialnum.ToString(); //Il numero di persone è fisso
+                list[0] = "1"; //Apertura Ã¨ chiuso
+                string oraapertura = ora; //Ora passata da program del momento in cui il bus Ã¨ partito dalla fermata
+                list[1] = initialnum.ToString(); //Il numero di persone Ã¨ fisso
                 list[2] = Posizione()[0].ToString(); //La posizione varia
                 list[3] = Posizione()[1].ToString(); //La posizione varia
                 string oraposizione = (System.DateTime.UtcNow.Ticks - System.DateTime.Parse("01/01/1970 00:00:00").Ticks).ToString(); //La data di invio dati cambia anche da bus fermo
-                list[4] = Id(); //L'id è quello fornito
+                list[4] = Id(); //L'id Ã¨ quello fornito
                 return "{" +
                             "\"Apertura\":\"" + list[0] + "\"," +
                             "\"Conta_Persone\":\"" + list[1] + "\"," +
