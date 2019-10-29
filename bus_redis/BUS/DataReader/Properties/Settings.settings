@@ -1,0 +1,30 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DataReader.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SQLIP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.1.1</Value>
+    </Setting>
+    <Setting Name="SQLPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1433</Value>
+    </Setting>
+    <Setting Name="SQLNetworkLibrary" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DBMSSOCN</Value>
+    </Setting>
+    <Setting Name="SQLInitialCatalog" Type="System.String" Scope="User">
+      <Value Profile="(Default)">dbase</Value>
+    </Setting>
+    <Setting Name="SQLUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">sa</Value>
+    </Setting>
+    <Setting Name="SQLPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">password</Value>
+    </Setting>
+    <Setting Name="ExternalTimePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">EXTERNALTIME.txt</Value>
+    </Setting>
+    <Setting Name="RedisServerPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">32bit\redis-server.exe</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
