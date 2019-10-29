@@ -1,0 +1,10 @@
+C:\Users\PC\source\DataSender\bin\Release\DataSender.exe
+C:\Users\PC\source\DataSender\bin\Release\DataSender.pdb
+C:\Users\PC\source\DataSender\bin\Release\csredis.dll
+C:\Users\PC\source\DataSender\bin\Release\csredis.xml
+C:\Users\PC\source\DataSender\obj\Release\DataSender.csprojAssemblyReference.cache
+C:\Users\PC\source\DataSender\obj\Release\DataSender.csproj.CoreCompileInputs.cache
+C:\Users\PC\source\DataSender\obj\Release\DataSender.csproj.CopyComplete
+C:\Users\PC\source\DataSender\obj\Release\DataSender.exe
+C:\Users\PC\source\DataSender\obj\Release\DataSender.pdb
+C:\Users\PC\source\DataSender\bin\Release\DataSender.exe.config

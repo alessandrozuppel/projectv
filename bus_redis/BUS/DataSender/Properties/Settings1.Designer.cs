@@ -43,7 +43,7 @@ namespace DataSender.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("192.168.101.26")]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.23")]
         public string ServerIp {
             get {
                 return ((string)(this["ServerIp"]));
@@ -83,9 +83,9 @@ namespace DataSender.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("851")]
-        public int AmsNetPort {
+        public string AmsNetPort {
             get {
-                return ((int)(this["AmsNetPort"]));
+                return ((string)(this["AmsNetPort"]));
             }
             set {
                 this["AmsNetPort"] = value;
@@ -106,7 +106,7 @@ namespace DataSender.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("EXTERNALAPP.txt")]
+        [global::System.Configuration.DefaultSettingValueAttribute("EXTERNALTIME.txt")]
         public string ExternalTimePath {
             get {
                 return ((string)(this["ExternalTimePath"]));
@@ -161,6 +161,30 @@ namespace DataSender.Properties {
             }
             set {
                 this["TokenPass"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("VALUES.txt")]
+        public string ExternalValuesPath {
+            get {
+                return ((string)(this["ExternalValuesPath"]));
+            }
+            set {
+                this["ExternalValuesPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Autentication {
+            get {
+                return ((bool)(this["Autentication"]));
+            }
+            set {
+                this["Autentication"] = value;
             }
         }
     }
