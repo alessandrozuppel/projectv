@@ -1,0 +1,51 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DataSender.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="LocalHost" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">127.0.0.2</Value>
+    </Setting>
+    <Setting Name="LocalHostIp" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">5000</Value>
+    </Setting>
+    <Setting Name="ServerIp" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">192.168.1.23</Value>
+    </Setting>
+    <Setting Name="ServerPort" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">3000</Value>
+    </Setting>
+    <Setting Name="ApiPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">/api/busdati</Value>
+    </Setting>
+    <Setting Name="AmsNetID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.1.236.1.1</Value>
+    </Setting>
+    <Setting Name="AmsNetPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)">851</Value>
+    </Setting>
+    <Setting Name="ExternalAppPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">EXTERNALAPP.txt</Value>
+    </Setting>
+    <Setting Name="ExternalTimePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">EXTERNALTIME.txt</Value>
+    </Setting>
+    <Setting Name="NetUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">pippo</Value>
+    </Setting>
+    <Setting Name="NetPass" Type="System.String" Scope="User">
+      <Value Profile="(Default)">poppo</Value>
+    </Setting>
+    <Setting Name="TokenId" Type="System.String" Scope="User">
+      <Value Profile="(Default)">pippo</Value>
+    </Setting>
+    <Setting Name="TokenPass" Type="System.String" Scope="User">
+      <Value Profile="(Default)">passwordsicura</Value>
+    </Setting>
+    <Setting Name="ExternalValuesPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">VALUES.txt</Value>
+    </Setting>
+    <Setting Name="Autentication" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
