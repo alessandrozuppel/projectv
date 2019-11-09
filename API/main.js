@@ -22,6 +22,7 @@ const config = {
 const addresses = ["127.0.0.10:3001", "127.0.0.20:3002", "127.0.0.30:3003"];
 
 var counter=0;
+var obj = JSON.parse(fs.readFileSync('config/LoadBalancer.json', 'utf8'));
 
 //determina il server e lo comunica
 fastify.post("/getip/", async (request, reply) => {
@@ -57,7 +58,8 @@ fastify.post("/getip/", async (request, reply) => {
 
 const start = async () => {
   try {
-    await fastify.listen(3000, "0.0.0.0");                                        //Creo web server e sto in ascolto sulla porta 3000
+    console.log(fastify.server.address());
+    await fastify.listen(obj.api.port, obj.api.ip)                                                    //Creo web server e sto in ascolto sulla porta 3000
     fastify.log.info(`server listening on ${fastify.server.address().port}`)      // Ascolto tutte richiest http
   } catch (err) {
     fastify.log.error(err)

@@ -13,7 +13,7 @@ fastify.register(require("fastify-jwt"), {
 });
 const bcrypt = require("bcrypt");
 
-var obj = JSON.parse(fs.readFileSync('../config3/configApi_Influxdb.json', 'utf8'));
+var obj = JSON.parse(fs.readFileSync('config/configApi_Influxdb3.json', 'utf8'));
 
 const influx = new Influx.InfluxDB({
   host: obj.influx.host,
