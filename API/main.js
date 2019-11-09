@@ -4,6 +4,7 @@ const fastify = require('fastify')({
 });
 
 const bcrypt = require("bcrypt");
+const fs = require('fs');
 
 const sql = require("mssql");
 const config = {
