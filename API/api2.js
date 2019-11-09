@@ -150,7 +150,7 @@ fastify.get('/api/numpers/:id', async (request, reply) => {
 */
 const start = async () => {
   try {
-    await fastify.listen("127.0.0.20:3002")                                                    //Creo web server e sto in ascolto sulla porta 3000
+    await fastify.listen(3002,"127.0.0.20")                                                    //Creo web server e sto in ascolto sulla porta 3000
     fastify.log.info(`server listening on 127.0.0.20:3002`)      // Ascolto tutte richiest http
   } catch (err) {
     fastify.log.error(err)
