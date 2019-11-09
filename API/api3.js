@@ -13,7 +13,7 @@ fastify.register(require("fastify-jwt"), {
 });
 const bcrypt = require("bcrypt");
 
-var obj = JSON.parse(fs.readFileSync('../config/configApi_Influxdb.json', 'utf8'));
+var obj = JSON.parse(fs.readFileSync('../config3/configApi_Influxdb.json', 'utf8'));
 
 const influx = new Influx.InfluxDB({
   host: obj.influx.host,
@@ -150,8 +150,8 @@ fastify.get('/api/numpers/:id', async (request, reply) => {
 */
 const start = async () => {
   try {
-    await fastify.listen(3003,"127.0.0.30")                                                    //Creo web server e sto in ascolto sulla porta 3000
-    fastify.log.info(`server listening on 127.0.0.30:3003`)      // Ascolto tutte richiest http
+    await fastify.listen(obj.api.port, obj.api.ip)                                                    //Creo web server e sto in ascolto sulla porta 3000
+    fastify.log.info(`server listening on ${fastify.server.address().port}`)      // Ascolto tutte richiest http
   } catch (err) {
     fastify.log.error(err)
     process.exit(1)                                                               // Esci con un errore 
