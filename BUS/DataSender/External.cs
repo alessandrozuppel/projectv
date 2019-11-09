@@ -67,7 +67,6 @@ namespace DataSender
 
             switch (el)
             {
-                case ("wait stop"): { Program.wait = false; break; }
                 case ("wait start"): { Program.wait = true; break; }
                 case ("speed start"): { Program.speed = true; break; }
                 case ("speed stop"): { Program.speed = false; break; }
@@ -110,6 +109,7 @@ namespace DataSender
                         File.WriteAllText(Properties.Settings.Default.ExternalTimePath, time.ToString());
                         break;
                     }
+                case ("bcryptrounds"): { Program.bcryptrounds = Convert.ToInt32(el1[1]); break; }
             }
         }
 

@@ -1,3 +1,15 @@
+const sql = require("mssql");
+const config = {
+  user: 'sa',
+  password: 'passwordpassword',
+  server: 'localhost\\sqlexpress', // You can use 'localhost\\instance' to connect to named instance
+  database: 'ITS',
+
+  options: {
+      encrypt: true // Use this if you're on Windows Azure
+  }
+};
+
 const fastify = require('fastify')({
   logger: true,                           //quando arriva una richiesta http riesce a loggare qualsiasi richiesta, senza che ogni volta lo facciamo noi (il log)
   ignoreTrailingSlash: true               // Se =True --> tratta la richiesta con "/" finale o senza, allo stesso modo ("products/"" o "product")
@@ -22,25 +34,37 @@ const influx = new Influx.InfluxDB({
 })
 
 fastify.post('/token', async (request, reply) => {
-  try {
+  try
+  {
+    let server = await sql.connect(config);
     let model = request.body;
-    if (model.password == "passwordsicura") {
-      var user = {
-        id: 10,
-        user: "pippo"
-      };
-      const token = fastify.jwt.sign({ payload: user });
-      reply.send(token);
+    var check = await sql.query(`select Password from Users where Username='${model.username}';`);
+   if(check.recordset.lenght>0)
+    {
+      var hash = bcrypt.hashSync(check.recordset[0], 10);
+      if(hash==model.password)
+      {
+        var user =
+        {
+          id: 10,
+          user: "pippo"
+        };
+        const token = fastify.jwt.sign({ payload: user });
+        reply.send(token);
+      }
+      else
+      {
+        reply.send("400");
+      }
     }
-    else {
-      reply.status(404).send({
-        "Error": "Username o Password sbagliati"
-      });
+    else
+    {
+      reply.send("400");
     }
-
   }
-  catch (err) {
-    reply.send(err);
+  catch
+  {
+    reply.send("500");
   }
 });
 

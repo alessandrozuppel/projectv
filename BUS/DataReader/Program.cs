@@ -1,11 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using DataReader.Sensors;
-using CSRedis;
 using System.Net.Sockets;
 using System.Linq;
 using System.Diagnostics;
+
+using DataReader.Sensors;
+
+using CSRedis;
 
 namespace DataReader
 {
