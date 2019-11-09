@@ -3,10 +3,11 @@ const fastify = require('fastify')({
   ignoreTrailingSlash: true               // Se =True --> tratta la richiesta con "/" finale o senza, allo stesso modo ("products/"" o "product")
 });
 
+const xml = require('xmlhttprequest');
 //list of servers
-const adresses = ["127.0.0.10:3001", "127.0.0.20:3002", "127.0.0.30:3003"];
+const addresses = ["127.0.0.10:3001", "127.0.0.20:3002", "127.0.0.30:3003"];
 
-const http = new XMLHttpRequest();
+//const http = new xml.XMLHttpRequest();
 const path = '/api/busdati/';
 var counter=0;
 
@@ -21,7 +22,7 @@ var counter=0;
 
 const start = async () => {
   try {
-    await fastify.listen(obj.api.port, obj.api.ip)                                //Creo web server e sto in ascolto sulla porta 3000
+    await fastify.listen("0.0.0.0:3000");                                //Creo web server e sto in ascolto sulla porta 3000
     fastify.log.info(`server listening on ${fastify.server.address().port}`)      // Ascolto tutte richiest http
   } catch (err) {
     fastify.log.error(err)
