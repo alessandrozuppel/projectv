@@ -7,13 +7,9 @@ fastify.register(require('fastify-cors'));
 
 const Influx = require('influx');
 const fs = require('fs');
+
 const sql = require('mssql');
-const config = {
-    user: 'sa',
-    password: 'passwordpassword',
-    server: 'localhost\\sqlexpress',
-    database: 'Routes_Bus',
-}
+const config = JSON.parse(fs.readFileSync('dbconfig.json', 'utf8'));
 
 fastify.post('/api/trackBus', async (request, reply) => {
   try {
