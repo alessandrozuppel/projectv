@@ -166,7 +166,6 @@ UpgradeLog*.htm
 **/App_Data/*.ldf
 **/App_Data/*.sdf
 
-
 #LightSwitch generated files
 GeneratedArtifacts/
 _Pvt_Extensions/
@@ -223,3 +222,6 @@ project.lock.json
 #####
 # End of core ignore list, below put you custom 'per project' settings (patterns or path)
 #####
+
+
+**/dbconfig.json
