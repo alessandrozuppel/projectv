@@ -10,17 +10,19 @@ const fs = require('fs');
 const sql = require('mssql');
 const config = {
     user: 'sa',
-    password: 'pwd',
+    password: 'passwordpassword',
     server: 'localhost\\sqlexpress',
     database: 'Routes_Bus',
 }
 
-fastify.get('/api/trackBus/', async (request, reply) => {
+fastify.post('/api/trackBus', async (request, reply) => {
   try {
       let pool = await sql.connect(config);
-      let model = req.body;
-      var date = getDay()+"/"+getMonth()+"/"+getFullYear();
-      let result = await pool.request().query(`select Percorso_JSON from dbo.TrackBus where TargaBus=${Model.TargaBus} AND Giorno=${date}`);
+      let model = request.body;
+      var today = new Date();
+      var date=today.getDay()+"/"+today.getMonth()+"/"+today.getFullYear();
+      date="12/11/2019";
+      let result = await pool.request().query(`select Percorso_JSON from dbo.TrackBus where TargaBus='${model.TargaBus}' AND Giorno='${date}'`);
       sql.close();
       return result.recordset[0];
   } catch (error) {
