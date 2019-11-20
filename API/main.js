@@ -7,6 +7,27 @@ fastify.register(require('fastify-cors'));
 
 const Influx = require('influx');
 const fs = require('fs');
+const sql = require('mssql');
+const config = {
+    user: 'sa',
+    password: 'pwd',
+    server: 'localhost\\sqlexpress',
+    database: 'Routes_Bus',
+}
+
+fastify.get('/api/trackBus/', async (request, reply) => {
+  try {
+      let pool = await sql.connect(config);
+      let model = req.body;
+      var date = getDay()+"/"+getMonth()+"/"+getFullYear();
+      let result = await pool.request().query(`select Percorso_JSON from dbo.TrackBus where TargaBus=${Model.TargaBus} AND Giorno=${date}`);
+      sql.close();
+      return result.recordset[0];
+  } catch (error) {
+      console.log(error);
+      reply.status(500).send();
+  }
+});
 
 fastify.register(require("fastify-jwt"), {
   secret: 'supersecret'
