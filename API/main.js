@@ -11,22 +11,6 @@ const fs = require('fs');
 const sql = require('mssql');
 const config = JSON.parse(fs.readFileSync('dbconfig.json', 'utf8'));
 
-fastify.post('/api/trackBus', async (request, reply) => {
-  try {
-      let pool = await sql.connect(config);
-      let model = request.body;
-      var today = new Date();
-      var date=today.getDay()+"/"+today.getMonth()+"/"+today.getFullYear();
-      date="12/11/2019";
-      let result = await pool.request().query(`select Percorso_JSON from dbo.TrackBus where TargaBus='${model.TargaBus}' AND Giorno='${date}'`);
-      sql.close();
-      return result.recordset[0];
-  } catch (error) {
-      console.log(error);
-      reply.status(500).send();
-  }
-});
-
 fastify.register(require("fastify-jwt"), {
   secret: 'supersecret'
 });
@@ -108,8 +92,25 @@ fastify.register(async function (fastify, opts) {
     }
 
     reply.status(201).send("201");
+  });
 
 
+
+
+  fastify.post('/api/trackBus', async (request, reply) => {
+    try {
+        let pool = await sql.connect(config);
+        let model = request.body;
+        var today = new Date();
+        var date=today.getDay()+"/"+today.getMonth()+"/"+today.getFullYear();
+        date="12/11/2019";
+        let result = await pool.request().query(`select Percorso_JSON from dbo.TrackBus where TargaBus='${model.TargaBus}' AND Giorno='${date}'`);
+        sql.close();
+        return result.recordset[0];
+    } catch (error) {
+        console.log(error);
+        reply.status(500).send();
+    }
   });
 });
 
