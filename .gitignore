@@ -167,7 +167,6 @@ UpgradeLog*.htm
 **/App_Data/*.sdf
 **/dbconfig.json
 
-
 #LightSwitch generated files
 GeneratedArtifacts/
 _Pvt_Extensions/
@@ -226,3 +225,5 @@ project.lock.json
 #####
 
 branches
+
+**/dbconfig.json

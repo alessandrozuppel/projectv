@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Net;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace DataSender
 {
@@ -16,14 +18,20 @@ namespace DataSender
         public static bool erbus = false;
         public static bool speed = false;
 
+        //for sensors
+        public static string track;
+
         //Set Url
-        internal static string ip = Properties.Settings.Default.ServerIp;
+        //internal static string ip = Properties.Settings.Default.ServerIp;
+        internal static string ip = "127.0.0.10";
         internal static string port = Properties.Settings.Default.ServerPort;
         internal static string api_path = Properties.Settings.Default.ApiPath;
         internal static string url = "http://" + ip + ":" + port + api_path;
         internal static string urlToken = "http://" + ip + ":" + port + "/token";
-        internal static bool autentication = Properties.Settings.Default.Autentication;
+        internal static bool autentication = true;
         internal static string token = String.Empty;
+        internal static bool gottrack=false;
+        internal static JToken Track;
 
         static void Main(string[] args)
         {
@@ -38,13 +46,31 @@ namespace DataSender
                     while (true)
                     {
                         //Read, execute and write external data
+                        /*
                         string command = External.ReadValues();
-                        //string command = "serverip 192.168.1.26";
                         External.Execute(command);
                         External.WriteValues();
+                        */
 
-                        //Read from Redis queue
-                        List<string> redislist = redis.LRange("sensors_data", 0, redis.LLen("sensors_data") + 1).ToList();
+
+
+                        //Ottiene token autenticazione
+                        if (autentication == true)
+                        {
+                            string credentials = "{\"id\": \"" + Properties.Settings.Default.TokenId + "\", \"password\": \"" + Properties.Settings.Default.TokenPass + "\"}";
+                            token = Send("http://" + ip + ":" + port + "/token", credentials);
+                            autentication = false;
+                        }
+
+
+                        //Ottiene percorso giornaliero del mezzo/////////////
+                        if(gottrack==false && token.Length>0)
+                        {
+                            string url = "http://" + ip + ":" + port + "/api/trackBus";
+                            Track= JConstructor.Parse(Send(url, Properties.Settings.Default.Targa));
+                            gottrack = true;
+                        }
+                        ///////////////////////////////
 
                         if (wait == true)
                         {
@@ -52,33 +78,15 @@ namespace DataSender
                         }
                         else
                         {
+
                             string json = redis.BRPop(30, "sensors_data");
 
                             // send value to remote API
                             try
                             {
-                                using (WebClient webClient = new WebClient())
-                                {
-                                    //Ottiene token autenticazione
-                                    if (autentication == true)
-                                    {
-                                        using (WebClient wc = new WebClient())
-                                        {
-                                            string credentials = "{\"id\": \"" + Properties.Settings.Default.TokenId + "\", \"password\": \"" + Properties.Settings.Default.TokenPass + "\"}";
-                                            wc.Headers[HttpRequestHeader.ContentType] = "application/json";
-                                            token = webClient.UploadString(urlToken, credentials);
-                                        }
+                                string response = Send(url, json);
 
-                                        webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
-                                        webClient.Headers[HttpRequestHeader.Authorization] = "Bearer " + token;
-                                        webClient.UseDefaultCredentials = true;
-                                        webClient.Credentials = new NetworkCredential(Properties.Settings.Default.NetUser, Properties.Settings.Default.NetPass);
-                                    }
-
-                                    string response = webClient.UploadString(url, json);
-                                }
-
-                                Console.Write("si ");
+                                Console.Write(response);
                                 Console.WriteLine();
                             }
                             catch (Exception err)
@@ -94,6 +102,41 @@ namespace DataSender
                 {
                     Console.WriteLine(ex.Message);
                 }
+            }
+        }
+
+
+        internal static string Send(string url, string data)
+        {
+            using(WebClient webClient = new WebClient())
+            {
+                webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
+
+                if (token.Length>0)
+                {
+                    webClient.Headers[HttpRequestHeader.Authorization] = "Bearer " + token;
+                    webClient.UseDefaultCredentials = true;
+                    webClient.Credentials = new NetworkCredential(Properties.Settings.Default.NetUser, Properties.Settings.Default.NetPass);
+                }
+                return webClient.UploadString(url, data);
+            }
+        }
+
+
+        internal static string Get(string url)
+        {
+            using (WebClient webClient = new WebClient())
+            {
+                webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
+
+                if (token.Length > 0)
+                {
+                    webClient.Headers[HttpRequestHeader.Authorization] = "Bearer " + token;
+                    webClient.UseDefaultCredentials = true;
+                    webClient.Credentials = new NetworkCredential(Properties.Settings.Default.NetUser, Properties.Settings.Default.NetPass);
+                }
+
+                return webClient.DownloadString(url);
             }
         }
     }

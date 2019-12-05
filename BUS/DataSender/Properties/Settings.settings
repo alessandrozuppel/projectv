@@ -44,8 +44,8 @@
     <Setting Name="ExternalValuesPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">VALUES.txt</Value>
     </Setting>
-    <Setting Name="Autentication" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+    <Setting Name="Targa" Type="System.String" Scope="User">
+      <Value Profile="(Default)">{"TargaBus": "TAR456Y"}</Value>
     </Setting>
   </Settings>
 </SettingsFile>
