@@ -178,18 +178,6 @@ namespace DataSender.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Autentication {
-            get {
-                return ((bool)(this["Autentication"]));
-            }
-            set {
-                this["Autentication"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("{\"TargaBus\": \"TAR456Y\"}")]
         public string Targa {
             get {

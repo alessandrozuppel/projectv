@@ -28,9 +28,10 @@ namespace DataSender
         internal static string api_path = Properties.Settings.Default.ApiPath;
         internal static string url = "http://" + ip + ":" + port + api_path;
         internal static string urlToken = "http://" + ip + ":" + port + "/token";
-        internal static bool autentication = Properties.Settings.Default.Autentication;
+        internal static bool autentication = true;
         internal static string token = String.Empty;
         internal static bool gottrack=false;
+        internal static JToken Track;
 
         static void Main(string[] args)
         {
@@ -54,24 +55,22 @@ namespace DataSender
 
 
                         //Ottiene token autenticazione
-                        /*
                         if (autentication == true)
                         {
                             string credentials = "{\"id\": \"" + Properties.Settings.Default.TokenId + "\", \"password\": \"" + Properties.Settings.Default.TokenPass + "\"}";
-                            token = Send(urlToken, credentials);
+                            token = Send("http://" + ip + ":" + port + "/token", credentials);
                             autentication = false;
                         }
-                        */
 
-                        //Ottiene percorso giornaliero del mezzo
-                        if(gottrack==false)
+
+                        //Ottiene percorso giornaliero del mezzo/////////////
+                        if(gottrack==false && token.Length>0)
                         {
                             string url = "http://" + ip + ":" + port + "/api/trackBus";
-                            JToken jObject = JConstructor.Parse(Send(url, Properties.Settings.Default.Targa));
-                            track = jObject.Value<string>("Percorso_JSON");
+                            Track= JConstructor.Parse(Send(url, Properties.Settings.Default.Targa));
                             gottrack = true;
                         }
-
+                        ///////////////////////////////
 
                         if (wait == true)
                         {
@@ -119,8 +118,25 @@ namespace DataSender
                     webClient.UseDefaultCredentials = true;
                     webClient.Credentials = new NetworkCredential(Properties.Settings.Default.NetUser, Properties.Settings.Default.NetPass);
                 }
-
                 return webClient.UploadString(url, data);
+            }
+        }
+
+
+        internal static string Get(string url)
+        {
+            using (WebClient webClient = new WebClient())
+            {
+                webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
+
+                if (token.Length > 0)
+                {
+                    webClient.Headers[HttpRequestHeader.Authorization] = "Bearer " + token;
+                    webClient.UseDefaultCredentials = true;
+                    webClient.Credentials = new NetworkCredential(Properties.Settings.Default.NetUser, Properties.Settings.Default.NetPass);
+                }
+
+                return webClient.DownloadString(url);
             }
         }
     }

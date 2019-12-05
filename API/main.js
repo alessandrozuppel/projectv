@@ -96,7 +96,6 @@ fastify.register(async function (fastify, opts) {
 
 
 
-
   fastify.post('/api/trackBus', async (request, reply) => {
     try {
         let pool = await sql.connect(config);
@@ -104,14 +103,15 @@ fastify.register(async function (fastify, opts) {
         var today = new Date();
         var date=today.getDay()+"/"+today.getMonth()+"/"+today.getFullYear();
         date="12/11/2019";
-        let result = await pool.request().query(`select Percorso_JSON from dbo.TrackBus where TargaBus='${model.TargaBus}' AND Giorno='${date}'`);
+        var result = await pool.request().query(`select Percorso_JSON from dbo.TrackBus where TargaBus='${model.TargaBus}' AND Giorno='${date}';`);
         sql.close();
-        return result.recordset[0];
+        return fs.readFileSync(result.recordset[0].Percorso_JSON, 'utf8');
     } catch (error) {
         console.log(error);
         reply.status(500).send();
     }
   });
+
 });
 
 // visualizzazione dei dati 
@@ -129,9 +129,7 @@ fastify.get('/api/visbus/:id', async (request, reply) => {
 
   try{
     influx.query(query).then(results => {
-      //console.log("sono qui");
       if (results==''){
-       // console.log("sono qui?");
         reply.status(404).send("Autobus not found");
       }
       else{
@@ -170,7 +168,8 @@ fastify.get('/api/numpers/:id', async (request, reply) => {
 */
 const start = async () => {
   try {
-    await fastify.listen(obj.api.port, obj.api.ip)                                                    //Creo web server e sto in ascolto sulla porta 3000
+    //await fastify.listen(obj.api.port, obj.api.ip)                                                    //Creo web server e sto in ascolto sulla porta 3000
+    await fastify.listen(3000, "127.0.0.10")
     fastify.log.info(`server listening on ${fastify.server.address().port}`)      // Ascolto tutte richiest http
   } catch (err) {
     fastify.log.error(err)
