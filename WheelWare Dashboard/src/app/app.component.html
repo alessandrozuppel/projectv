@@ -1,0 +1,16 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<mat-card>
+  <h1 class="title">
+    WheelWare 
+  </h1>
+  <h2 class="subtitle">
+    Dashboard
+  </h2>
+</mat-card>
+
+<div class="list">
+  <app-autobus-list *ngIf="hasLoaded" [autobusList] = "data"></app-autobus-list>
+  <mat-spinner style="margin:0 auto;" *ngIf="!hasLoaded"></mat-spinner>
+</div>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,23 @@
+<mat-accordion class="example-headers-align">
+
+  <mat-expansion-panel [expanded]="step === i" (opened)="setStep(i)" hideToggle *ngFor="let autobus of autobusList; let i = index">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <strong>ID</strong>: {{ autobus.idBus}}
+      </mat-panel-title>
+      <mat-panel-description>
+        Data/Ora: {{ autobus.time}}
+        <mat-icon>commute</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    Persone: {{ autobus.nPersone}}
+    <br>
+    Stato Porte: <strong>{{ autobus.Apertura }}</strong>
+    <!--Qui ci va la mappa-->
+
+    <mat-action-row>
+      <button mat-button color="warn" (click)="prevStep()" *ngIf="step != 0">Previous</button>
+      <button mat-button color="primary" (click)="nextStep()">Next</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
