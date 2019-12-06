@@ -8,6 +8,6 @@ namespace DataReader.Sensors
 {
     interface ISensor
     {
-        string ToJson(bool fermo, string ora);
+        string ToJson();
     }
 }

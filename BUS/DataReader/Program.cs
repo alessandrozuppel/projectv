@@ -11,7 +11,7 @@ namespace DataReader
 {
     class Program
     {
-        public static int time = 5;
+        public static int time;
         static void Main(string[] args)
         {
             // init sensors
@@ -20,64 +20,51 @@ namespace DataReader
                 new VirtualSensors()
             };
 
+            // configure Redis
+            var redis = new RedisClient("127.0.0.1");
+            //StartServer(redis);
+
+
+            time = 5000;
             while (true)
             {
-                try
+                //SetTime();
+
+                foreach (ISensor sensor in sensors)
                 {
-                    //Start redis server
-                    StartRedisServer();
+                    // get current sensor value
+                    var data = sensor.ToJson();
+                    Console.WriteLine(data);
 
-                    // configure Redis
-                    var redis = new RedisClient("127.0.0.1");
+                    // push to redis queue
+                    //redis.LPush("sensors_data", data);
 
-                    while (true)
-                    {
-                        //SetTime();
-
-                        foreach (ISensor sensor in sensors)
-                        {
-                            // get current sensor value
-                            var data = sensor.ToJson();
-                            Console.WriteLine(data);
-
-                            // push to redis queue
-                            redis.LPush("sensors_data", data);
-
-                            // wait tot second
-                            System.Threading.Thread.Sleep(time*1000);
-                        }
-
-                    }
+                    // wait 1 second
+                    System.Threading.Thread.Sleep(5000);
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+
             }
         }
 
-        public static void StartRedisServer()
+        public static void StartServer(RedisClient redis)
         {
             bool ok = false;
             Process process = new Process();
             process.StartInfo.UseShellExecute = true;
             process.StartInfo.CreateNoWindow = false;
-            //process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            process.StartInfo.FileName = Properties.Settings.Default.RedisServerPath;
+            process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            process.StartInfo.FileName = @"C:\Users\PC\Downloads\64bit\redis-server.exe";
             process.Start();
 
-            while (ok == false)
+            while(ok==false)
             {
-                using (var redis = new RedisClient("127.0.0.1"))
+                try
                 {
-                    try
-                    {
-                        redis.Ping();
-                        ok = true;
-                    }
-                    catch
-                    {
-                    }
+                    redis.Ping();
+                    ok = true;
+                }
+                catch
+                {
                 }
             }
         }
@@ -85,26 +72,11 @@ namespace DataReader
 
         public static void SetTime()
         {
-            string[] lines = File.ReadAllLines(Properties.Settings.Default.ExternalTimePath);
+            string path = @"C:\Users\PC\Desktop\prvgraf\BUS\EXTERNALTIME.txt";
+            string[] lines = File.ReadAllLines(path);
 
-            if (lines.Length > 0)
+            if(lines.Length>0)
                 time = Convert.ToInt32(lines[0]);
-        }
-
-
-        public static string[] GetBusInfo()
-        {
-            string connectionstring = new SQL.Connection.ConnectionStringBuilder()
-                                                                                .IP(Properties.Settings.Default.SQLIP)
-                                                                                .Port(Properties.Settings.Default.SQLPort)
-                                                                                .NetLib(Properties.Settings.Default.SQLNetworkLibrary)
-                                                                                .InitCat(Properties.Settings.Default.SQLInitialCatalog)
-                                                                                .User(Properties.Settings.Default.SQLUser)
-                                                                               .Pass(Properties.Settings.Default.SQLPassword)
-                                                                               .Build();
-
-            SQL.Connection connection = new SQL.Connection();
-            return connection.Connect(connectionstring);
         }
     }
 }
