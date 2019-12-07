@@ -11,6 +11,5 @@ namespace DataReader.Sensors
         string Apertura();
         string ContaPersone();
         string[] Posizione();
-        string Id();
     }
 }

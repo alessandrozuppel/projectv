@@ -25,33 +25,6 @@ namespace DataSender.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("127.0.0.2")]
-        public string LocalHost {
-            get {
-                return ((string)(this["LocalHost"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5000")]
-        public string LocalHostIp {
-            get {
-                return ((string)(this["LocalHostIp"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.23")]
-        public string ServerIp {
-            get {
-                return ((string)(this["ServerIp"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("3000")]
         public string ServerPort {
             get {
@@ -70,121 +43,34 @@ namespace DataSender.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.236.1.1")]
-        public string AmsNetID {
+        [global::System.Configuration.DefaultSettingValueAttribute("7c9f08cfb45277f0a37f98f98825e935246d70a7bd1db247afc94fef89cfbfed")]
+        public string PassMezzo {
             get {
-                return ((string)(this["AmsNetID"]));
+                return ((string)(this["PassMezzo"]));
             }
             set {
-                this["AmsNetID"] = value;
+                this["PassMezzo"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("127.0.0.10")]
+        public string ServerIp {
+            get {
+                return ((string)(this["ServerIp"]));
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("851")]
-        public string AmsNetPort {
+        [global::System.Configuration.DefaultSettingValueAttribute("3030")]
+        public string IdMezzo {
             get {
-                return ((string)(this["AmsNetPort"]));
+                return ((string)(this["IdMezzo"]));
             }
             set {
-                this["AmsNetPort"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("EXTERNALAPP.txt")]
-        public string ExternalAppPath {
-            get {
-                return ((string)(this["ExternalAppPath"]));
-            }
-            set {
-                this["ExternalAppPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("EXTERNALTIME.txt")]
-        public string ExternalTimePath {
-            get {
-                return ((string)(this["ExternalTimePath"]));
-            }
-            set {
-                this["ExternalTimePath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("pippo")]
-        public string NetUser {
-            get {
-                return ((string)(this["NetUser"]));
-            }
-            set {
-                this["NetUser"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("poppo")]
-        public string NetPass {
-            get {
-                return ((string)(this["NetPass"]));
-            }
-            set {
-                this["NetPass"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("pippo")]
-        public string TokenId {
-            get {
-                return ((string)(this["TokenId"]));
-            }
-            set {
-                this["TokenId"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("passwordsicura")]
-        public string TokenPass {
-            get {
-                return ((string)(this["TokenPass"]));
-            }
-            set {
-                this["TokenPass"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("VALUES.txt")]
-        public string ExternalValuesPath {
-            get {
-                return ((string)(this["ExternalValuesPath"]));
-            }
-            set {
-                this["ExternalValuesPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("{\"TargaBus\": \"TAR456Y\"}")]
-        public string Targa {
-            get {
-                return ((string)(this["Targa"]));
-            }
-            set {
-                this["Targa"] = value;
+                this["IdMezzo"] = value;
             }
         }
     }

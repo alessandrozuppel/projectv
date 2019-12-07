@@ -14,16 +14,12 @@ namespace DataSender
     public class Program
     {
         public static bool wait = false;
-        public static bool erserver = false;
-        public static bool erbus = false;
-        public static bool speed = false;
 
-        //for sensors
-        public static string track;
+        //For sensors
+        public static JToken Track=null;
 
         //Set Url
-        //internal static string ip = Properties.Settings.Default.ServerIp;
-        internal static string ip = "127.0.0.10";
+        internal static string ip = Properties.Settings.Default.ServerIp;
         internal static string port = Properties.Settings.Default.ServerPort;
         internal static string api_path = Properties.Settings.Default.ApiPath;
         internal static string url = "http://" + ip + ":" + port + api_path;
@@ -31,7 +27,6 @@ namespace DataSender
         internal static bool autentication = true;
         internal static string token = String.Empty;
         internal static bool gottrack=false;
-        internal static JToken Track;
 
         static void Main(string[] args)
         {
@@ -46,18 +41,17 @@ namespace DataSender
                     while (true)
                     {
                         //Read, execute and write external data
-                        /*
                         string command = External.ReadValues();
                         External.Execute(command);
                         External.WriteValues();
-                        */
+
 
 
 
                         //Ottiene token autenticazione
                         if (autentication == true)
                         {
-                            string credentials = "{\"id\": \"" + Properties.Settings.Default.TokenId + "\", \"password\": \"" + Properties.Settings.Default.TokenPass + "\"}";
+                            string credentials = "{\"Id\": \"" + Properties.Settings.Default.IdMezzo + "\", \"Password\": \"" + Properties.Settings.Default.PassMezzo + "\"}";
                             token = Send("http://" + ip + ":" + port + "/token", credentials);
                             autentication = false;
                         }
@@ -67,7 +61,7 @@ namespace DataSender
                         if(gottrack==false && token.Length>0)
                         {
                             string url = "http://" + ip + ":" + port + "/api/trackBus";
-                            Track= JConstructor.Parse(Send(url, Properties.Settings.Default.Targa));
+                            Track= JConstructor.Parse(Send(url, Properties.Settings.Default.IdMezzo));
                             gottrack = true;
                         }
                         ///////////////////////////////
@@ -116,27 +110,8 @@ namespace DataSender
                 {
                     webClient.Headers[HttpRequestHeader.Authorization] = "Bearer " + token;
                     webClient.UseDefaultCredentials = true;
-                    webClient.Credentials = new NetworkCredential(Properties.Settings.Default.NetUser, Properties.Settings.Default.NetPass);
                 }
                 return webClient.UploadString(url, data);
-            }
-        }
-
-
-        internal static string Get(string url)
-        {
-            using (WebClient webClient = new WebClient())
-            {
-                webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
-
-                if (token.Length > 0)
-                {
-                    webClient.Headers[HttpRequestHeader.Authorization] = "Bearer " + token;
-                    webClient.UseDefaultCredentials = true;
-                    webClient.Credentials = new NetworkCredential(Properties.Settings.Default.NetUser, Properties.Settings.Default.NetPass);
-                }
-
-                return webClient.DownloadString(url);
             }
         }
     }

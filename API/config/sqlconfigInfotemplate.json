@@ -1,0 +1,10 @@
+{
+        "user": "[Database user username here]",
+        "password": "[User password here]",
+        "server": "[Ip and server name here (es localhost\\sqlexpress)]",
+        "database": "[Database name here]",
+    
+        "options": {
+            "encrypt": true
+        }
+}

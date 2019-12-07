@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>DataReader</RootNamespace>
     <AssemblyName>DataReader</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
@@ -35,8 +35,8 @@
     <Reference Include="csredis, Version=3.2.1.0, Culture=neutral, PublicKeyToken=1afd0264bbe4a44a, processorArchitecture=MSIL">
       <HintPath>..\packages\csredis.3.2.1\lib\net40\csredis.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -44,11 +44,7 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="TwinCAT.Ads">
-      <HintPath>..\..\TwinCAT.Ads.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -71,6 +67,12 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Sensors\track.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataSender\DataSender.csproj">
+      <Project>{35693119-c5e2-43de-9d34-a84d95c1a8f2}</Project>
+      <Name>DataSender</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

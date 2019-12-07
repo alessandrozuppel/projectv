@@ -9,14 +9,15 @@ const Influx = require('influx');
 const fs = require('fs');
 
 const sql = require('mssql');
-const config = JSON.parse(fs.readFileSync('dbconfig.json', 'utf8'));
+const configRoutes = JSON.parse(fs.readFileSync('config/sqlconfigRoutes.json', 'utf8'));
+const configInfo = JSON.parse(fs.readFileSync('config/sqlconfigInfo.json', 'utf8'));
 
 fastify.register(require("fastify-jwt"), {
   secret: 'supersecret'
 });
 const bcrypt = require("bcrypt");
 
-var obj = JSON.parse(fs.readFileSync('../config/configApi_Influxdb.json', 'utf8'));
+var obj = JSON.parse(fs.readFileSync('config/configApi_Influxdb.json', 'utf8'));
 
 const influx = new Influx.InfluxDB({
   host: obj.influx.host,
@@ -26,11 +27,13 @@ const influx = new Influx.InfluxDB({
 
 fastify.post('/token', async (request, reply) => {
   try {
+    let pool = await sql.connect(configInfo);
     let model = request.body;
-    if (model.password == "passwordsicura") {
+    var response = await pool.request().query(`select * from dbo.Autenticazioni where IdMezzo='${model.Id}';`)
+    if (model.Password == response.recordset[0].Hash) {
       var user = {
         id: 10,
-        user: "pippo"
+        user: "giacomo"
       };
       const token = fastify.jwt.sign({ payload: user });
       reply.send(token);
@@ -98,12 +101,11 @@ fastify.register(async function (fastify, opts) {
 
   fastify.post('/api/trackBus', async (request, reply) => {
     try {
-        let pool = await sql.connect(config);
+        let pool = await sql.connect(configRoutes);
         let model = request.body;
         var today = new Date();
         var date=today.getDay()+"/"+today.getMonth()+"/"+today.getFullYear();
-        date="12/11/2019";
-        var result = await pool.request().query(`select Percorso_JSON from dbo.TrackBus where TargaBus='${model.TargaBus}' AND Giorno='${date}';`);
+        var result = await pool.request().query(`select Percorso_JSON from dbo.TrackBus where IdMezzo='${model.Id}' AND Giorno='${date}';`);
         sql.close();
         return fs.readFileSync(result.recordset[0].Percorso_JSON, 'utf8');
     } catch (error) {
@@ -168,8 +170,7 @@ fastify.get('/api/numpers/:id', async (request, reply) => {
 */
 const start = async () => {
   try {
-    //await fastify.listen(obj.api.port, obj.api.ip)                                                    //Creo web server e sto in ascolto sulla porta 3000
-    await fastify.listen(3000, "127.0.0.10")
+    await fastify.listen(obj.api.port, obj.api.ip)                                                    //Creo web server e sto in ascolto sulla porta 3000
     fastify.log.info(`server listening on ${fastify.server.address().port}`)      // Ascolto tutte richiest http
   } catch (err) {
     fastify.log.error(err)

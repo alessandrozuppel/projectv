@@ -1,0 +1,7 @@
+{
+    "api":{"port":"[Server port]",
+            "ip":"0.0.0.0"},
+    "influx":{"host":"[Server ip]",
+            "database": "[Database name",
+            "port":"[Database port]"}
+}

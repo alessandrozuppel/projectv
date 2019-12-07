@@ -1,5 +1,5 @@
-ip 127.0.0.10
+ip 192.168.1.26
 port 3000
 api_path /api/busdati
-url http://127.0.0.10:3000/api/busdati
-urlToken http://127.0.0.10:3000/token
+url http://192.168.1.26:3000/api/busdati
+urlToken http://192.168.1.26:3000/token

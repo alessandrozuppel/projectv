@@ -225,5 +225,6 @@ project.lock.json
 #####
 
 branches
-
-**/dbconfig.json
+**/sqlconfigInfo.json
+**/sqlconfigRoutes.json
+**/configApi_Influxdb.json
